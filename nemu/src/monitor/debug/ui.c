@@ -38,6 +38,8 @@ static int cmd_q(char *args) {
 
 static int cmd_help(char *args);
 
+static int cmd_si(char *args);
+
 static struct {
   char *name;
   char *description;
@@ -49,6 +51,7 @@ static struct {
 
   /* TODO: Add more commands */
 
+  { "si", "Step one instruction exactly.", cmd_si},
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
@@ -74,6 +77,31 @@ static int cmd_help(char *args) {
     printf("Unknown command '%s'\n", arg);
   }
   return 0;
+}
+
+static int cmd_si(char *args) {
+	char *arg = strtok(NULL, " ");
+	bool negative = false;
+	uint64_t step = 0;
+
+	if(*arg == '-') {
+		negative = true;
+		arg++;
+	}
+	else if(*arg =='+') {
+		arg++;
+	}
+	while(*arg!='\0') {
+		step *= 10;
+		step += (*arg-'0');
+		arg++;
+	}
+	
+	if(negative) {
+		step = (uint64_t)(step*(-1));
+	}
+	cpu_exec(step);
+	return 0;
 }
 
 void ui_mainloop(int is_batch_mode) {
