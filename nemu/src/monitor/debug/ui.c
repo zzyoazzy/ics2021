@@ -84,22 +84,24 @@ static int cmd_si(char *args) {
 	bool negative = false;
 	uint64_t step = 0;
 
-	if(*arg == '-') {
-		negative = true;
-		arg++;
+	if(arg != NULL) {
+		if(*arg == '-') {
+			negative = true;
+			arg++;
+		}
+		else if(*arg =='+') {
+			arg++;
+		}
+		while(*arg!='\0') {
+			step *= 10;
+			step += (*arg-'0');
+			arg++;
+		}
+		if(negative) {
+			step = (uint64_t)(step*(-1));
+		}
 	}
-	else if(*arg =='+') {
-		arg++;
-	}
-	while(*arg!='\0') {
-		step *= 10;
-		step += (*arg-'0');
-		arg++;
-	}
-	
-	if(negative) {
-		step = (uint64_t)(step*(-1));
-	}
+	else step = 1;
 	cpu_exec(step);
 	return 0;
 }
