@@ -166,6 +166,7 @@ static int cmd_x(char *args) {
 		if(*(arg+1)!='x'&&*(arg+1)!='X') {
 			return 0;
 		}
+		else num = 1;
 	}
 	arg+=2;
 	sscanf(arg,"%x",&vaddr);
