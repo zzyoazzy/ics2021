@@ -37,8 +37,8 @@ static int cmd_q(char *args) {
 }
 
 static int cmd_help(char *args);
-
 static int cmd_si(char *args);
+static int cmd_info(char *args);
 
 static struct {
   char *name;
@@ -52,6 +52,7 @@ static struct {
   /* TODO: Add more commands */
 
   { "si", "Step one instruction exactly.", cmd_si},
+  { "info", "Generic command for showing things about the program being debugged.", cmd_info },
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
@@ -103,6 +104,24 @@ static int cmd_si(char *args) {
 	}
 	else step = 1;
 	cpu_exec(step);
+	return 0;
+}
+
+static int cmd_info(char *args){
+	char *arg = strtok(NULL, " ");
+
+	if(arg == NULL) {
+		printf("List of info subcommands:\n");
+		printf("info r -- List of integr registers and their contents\n");	
+	}
+	else if(*arg == 'r') {
+		for(int i = 0;i < 8;++i) {
+			printf("%s:\t%8x\t%d\n",regsl[i],cpu.gpr[i]._32,cpu.gpr[i]._32);
+		}
+	}
+	else if(*arg == 'w') {
+
+	}
 	return 0;
 }
 
