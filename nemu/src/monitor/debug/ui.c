@@ -118,7 +118,8 @@ static int cmd_info(char *args){
 		for(int i = 0;i < 8;++i) {
 			printf("%s:\t0x%08x\t%d\n",regsl[i],cpu.gpr[i]._32,cpu.gpr[i]._32);
 		}
-		for(int i = 0;i < 8;++i) {
+		printf("eip:\t0x%08x\t%d\n",cpu.eip,cpu.eip);
+		/*for(int i = 0;i < 8;++i) {
 			printf("%s:\t0x%08x\t%d\n",regsw[i],cpu.gpr[i]._16,cpu.gpr[i]._16);
 		}
 		for(int i = 0;i < 4;++i) {
@@ -126,7 +127,7 @@ static int cmd_info(char *args){
 		}
 		for(int i = 0;i < 4;++i) {
 			printf("%s:\t0x%08x\t%d\n",regsb[i+4],cpu.gpr[i]._8[1],cpu.gpr[i]._8[1]);
-		}
+		}*/
 	}
 	else if(*arg == 'w') {
 
