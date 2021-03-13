@@ -173,7 +173,7 @@ static int cmd_x(char *args) {
 	printf("Address         Dword block     Byte sequence\n");
 	for(int i = 0;i < num;++i) {
 		uint32_t addr = negative?vaddr-i*4:vaddr+i*4;
-		int value = vaddr_read(addr,4);
+		uint32_t value = vaddr_read(addr,4);
 		printf("0x%08x\t0x%08x\t",addr,value);
 		for(int j = 0;j < 4;j++) {
 			printf("%02x ",value%256);
