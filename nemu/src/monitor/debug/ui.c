@@ -170,10 +170,10 @@ static int cmd_x(char *args) {
 	}
 	
 	sscanf(arg,"%x",&vaddr);
-	
+	printf("%x\n???????????????",vaddr);
 	for(int i=0;i<num;i++) {
 		int addr;
-		addr = negative?vaddr-i*8:vaddr+i*8;
+		addr = negative?vaddr-i*4:vaddr+i*4;
 		int value = vaddr_read(addr,4);	
 		printf("0x%08x\t0x%08x\t",addr,value);
 		for(int j = 0;j < 4;j++) {
