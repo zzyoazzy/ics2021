@@ -169,7 +169,7 @@ static int cmd_x(char *args) {
 	}
 	arg+=2;
 	sscanf(arg,"%x",&vaddr);
-	printf("Address      Dword block      Byte sequence\n");
+	printf("Address         Dword block   Byte sequence\n");
 	for(int i = 0;i < num;++i) {
 		uint32_t addr = negative?vaddr-i*4:vaddr+i*4;
 		int value = vaddr_read(addr,4);
