@@ -159,14 +159,13 @@ static int cmd_x(char *args) {
 			num+=*arg - '0';
 			arg++;
 		}
-
+		arg = strtok(NULL," ");
 	}
 	else
 	{
 		if(*(arg+1)!='x'&&*(arg+1)!='X') {
 			return 0;
 		}
-		arg = strtok(NULL," ");
 	}
 	arg+=2;
 	sscanf(arg,"%x",&vaddr);
