@@ -39,6 +39,7 @@ static int cmd_q(char *args) {
 static int cmd_help(char *args);
 static int cmd_si(char *args);
 static int cmd_info(char *args);
+static int cmd_x(char *args);
 
 static struct {
   char *name;
@@ -53,6 +54,7 @@ static struct {
 
   { "si", "Step one instruction exactly.", cmd_si},
   { "info", "Generic command for showing things about the program being debugged.", cmd_info },
+  { "x", "Examine memory", cmd_x},
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
@@ -135,6 +137,53 @@ static int cmd_info(char *args){
 	return 0;
 }
 
+
+static int cmd_x(char *args) {
+	char *arg = strtok(NULL," ");
+	int num = 0;
+	uint32_t vaddr;
+	bool negative = false;
+	if(arg == NULL) {
+		printf("Argument required (starding display address).\n");
+		return 0;
+	}	
+
+	if(*arg == '-') {
+		negative = true;
+		arg++;
+	}
+	
+	if(*arg!='0') {
+		while(*arg!='\0') {
+			num*=10;
+			num+=*arg - '0';
+			arg++;
+		}
+
+	}
+	else
+	{
+		if(*(arg+1)!='x'&&*(arg+1)!='X') {
+			return 0;
+		}
+		arg = strtok(NULL," ");
+	}
+	
+	sscanf(arg,"%x",&vaddr);
+	
+	for(int i=0;i<num;i++) {
+		int addr;
+		addr = negative?vaddr-i*8:vaddr+i*8;
+		int value = vaddr_read(addr,4);	
+		printf("0x%08x\t0x%08x\t",addr,value);
+		for(int j = 0;j < 4;j++) {
+			printf("%02x ",value%256);
+			value/=256;
+		}
+		printf("\n");
+	}
+	return 0;
+}
 void ui_mainloop(int is_batch_mode) {
   if (is_batch_mode) {
     cmd_c(NULL);
