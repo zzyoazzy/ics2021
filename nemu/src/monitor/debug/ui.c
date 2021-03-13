@@ -168,7 +168,7 @@ static int cmd_x(char *args) {
 		}
 		arg = strtok(NULL," ");
 	}
-	
+	arg+=2;
 	sscanf(arg,"%x",&vaddr);
 	printf("%x\n???????????????",vaddr);
 	for(int i=0;i<num;i++) {
