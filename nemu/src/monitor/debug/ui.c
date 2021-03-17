@@ -190,6 +190,8 @@ static int cmd_x(char *args) {
 static int cmd_p(char *args) {
 	while(*args++!='\0');
 	bool success;
+
+	args = "23&4";//test
 	uint32_t ans = expr(args, &success);
 	if(!success) {
 		printf("syntax error\n");
