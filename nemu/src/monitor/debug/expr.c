@@ -94,13 +94,13 @@ static bool make_token(char *e) {
 		  case TK_NOTYPE:	
 			position += substr_len;
 			break;
-        }
-		
-		tokens[nr_token].type = rules[i].token_type;
-		if(substr_len>32)panic("expression out of buffer!");
-		memcpy(tokens[nr_token].str,e+position,sizeof(char)*substr_len);
-		nr_token++;
-        break;
+		  default:
+			tokens[nr_token].type = rules[i].token_type;
+			if(substr_len>32)panic("expression out of buffer!");
+			memcpy(tokens[nr_token].str,e+position,sizeof(char)*substr_len);
+			nr_token++;
+		}
+		 break;
       }
 	  //no found
     }
