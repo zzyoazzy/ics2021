@@ -40,6 +40,8 @@ static int cmd_help(char *args);
 static int cmd_si(char *args);
 static int cmd_info(char *args);
 static int cmd_x(char *args);
+static int cmd_p(char *args);
+
 
 static struct {
   char *name;
@@ -55,6 +57,7 @@ static struct {
   { "si", "Step one instruction exactly.", cmd_si},
   { "info", "Generic command for showing things about the program being debugged.", cmd_info },
   { "x", "Examine memory", cmd_x},
+  { "p", "Print value of expression EXP.", cmd_p},
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
@@ -183,6 +186,19 @@ static int cmd_x(char *args) {
 	}
 	return 0;
 }
+
+static int cmd_p(char *args) {
+	while(*args++!='\0');
+	bool success;
+	uint32_t ans = expr(args, &success);
+	if(!success) {
+		printf("syntax error\n");
+		return 0;
+	}
+	printf("%d\n",ans);
+	return 0;
+}
+
 void ui_mainloop(int is_batch_mode) {
   if (is_batch_mode) {
     cmd_c(NULL);

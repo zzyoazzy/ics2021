@@ -7,10 +7,12 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ
+  TK_NOTYPE = 256, TK_EQ,
 
   /* TODO: Add more token types */
-
+  TK_REGISTER,			//register
+  TK_HEX,				//hex
+  TK_DEC,				//dec
 };
 
 static struct rule {
@@ -24,7 +26,16 @@ static struct rule {
 
   {" +", TK_NOTYPE},    // spaces
   {"\\+", '+'},         // plus
-  {"==", TK_EQ}         // equal
+  {"-", '-'},			// minus/negative
+  {"\\*", '*'},			// multiplication/dereference
+  {"/", '/'},			// division
+  {"(", '('},			// left bracket
+  {")", ')'},			// right bracket
+  {"\\$[a-z]+", TK_REGISTER}, // register
+  {"0[xX][0-9a-fA-F]+", TK_HEX},//hex
+  {"[0-9]+", TK_DEC},	//dec
+  {"==", TK_EQ},        // equal
+
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -80,11 +91,18 @@ static bool make_token(char *e) {
          */
 
         switch (rules[i].token_type) {
-          default: TODO();
+		  case TK_NOTYPE:	
+			position += substr_len;
+			break;
         }
-
+		
+		tokens[nr_token].type = rules[i].token_type;
+		if(substr_len>32)panic("expression out of buffer!");
+		memcpy(tokens[nr_token].str,e+position,sizeof(char)*substr_len);
+		nr_token++;
         break;
       }
+	  //no found
     }
 
     if (i == NR_REGEX) {
@@ -103,7 +121,8 @@ uint32_t expr(char *e, bool *success) {
   }
 
   /* TODO: Insert codes to evaluate the expression. */
-  TODO();
+  *success = true;
+  
 
   return 0;
 }
