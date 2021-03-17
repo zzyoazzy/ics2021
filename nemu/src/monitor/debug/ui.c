@@ -191,13 +191,13 @@ static int cmd_p(char *args) {
 	while(*args++!='\0');
 	bool success;
 
-	args = "23&4";//test
 	uint32_t ans = expr(args, &success);
 	if(!success) {
 		printf("syntax error\n");
 		return 0;
 	}
 	printf("%d\n",ans);
+	printf(args);
 	return 0;
 }
 
