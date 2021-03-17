@@ -189,6 +189,8 @@ static int cmd_x(char *args) {
 
 static int cmd_p(char *args) {
 	while(*args++!='\0');
+	
+	printf(args);
 	bool success;
 
 	uint32_t ans = expr(args, &success);
@@ -197,7 +199,6 @@ static int cmd_p(char *args) {
 		return 0;
 	}
 	printf("%d\n",ans);
-	printf(args);
 	return 0;
 }
 
