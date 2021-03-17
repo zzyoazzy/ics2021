@@ -29,8 +29,8 @@ static struct rule {
   {"-", '-'},			// minus/negative
   {"\\*", '*'},			// multiplication/dereference
   {"/", '/'},			// division
-  {"(", '('},			// left bracket
-  {")", ')'},			// right bracket
+  {"\\(", '('},			// left bracket
+  {"\\)", ')'},			// right bracket
   {"\\$[a-z]+", TK_REGISTER}, // register
   {"0[xX][0-9a-fA-F]+", TK_HEX},//hex
   {"[0-9]+", TK_DEC},	//dec
