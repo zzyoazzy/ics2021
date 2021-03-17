@@ -188,7 +188,7 @@ static int cmd_x(char *args) {
 }
 
 static int cmd_p(char *args) {
-	while(*args++!='\0');
+	//while(*args++!='\0');
 	
 	printf("!!!!!!!!!!");
 	printf(args);
