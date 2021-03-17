@@ -92,7 +92,6 @@ static bool make_token(char *e) {
 
         switch (rules[i].token_type) {
 		  case TK_NOTYPE:	
-			position += substr_len;
 			break;
 		  default:
 			tokens[nr_token].type = rules[i].token_type;
@@ -100,7 +99,8 @@ static bool make_token(char *e) {
 			memcpy(tokens[nr_token].str,e+position,sizeof(char)*substr_len);
 			nr_token++;
 		}
-		 break;
+		position += substr_len;
+		break;
       }
 	  //no found
     }
