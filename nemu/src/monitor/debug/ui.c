@@ -190,7 +190,9 @@ static int cmd_x(char *args) {
 static int cmd_p(char *args) {
 	while(*args++!='\0');
 	
+	printf("!!!!!!!!!!");
 	printf(args);
+	printf("!!!!!!!!!!");
 	bool success;
 
 	uint32_t ans = expr(args, &success);
