@@ -72,7 +72,7 @@ static bool make_token(char *e) {
   int i;
   regmatch_t pmatch;
 
-  nr_token = 0;
+  nr_token = 0;			//init nr_token
 
   while (e[position] != '\0') {
     /* Try all rules one by one. */
@@ -110,6 +110,59 @@ static bool make_token(char *e) {
   }
 
   return true;
+}
+
+
+
+
+bool check_parentheses(int p, int q) {
+	int num = 0;
+	if(tokens[p].type!='{'||tokens[p].type!=')')return false;
+	for(int i = p; i <= q; ++i) {
+		if(tokens[i].type == '(')num++;
+		else if(tokens[i].type == ')')num--;
+		
+		if(num<0)return false;
+	}
+	
+	return num == 0;
+}
+
+uint32_t token_value(int index) {
+	int token_type = tokens[index].type;
+	int ans = 0;
+	char *tk_p = tokens[index].str;
+	switch(token_type) {
+		case TK_DEC:
+			sscanf(tk_p, "%d", &ans);
+			break;
+		case TK_HEX:
+			sscanf(tk_p+2, "%x", &ans);
+			break;
+		case TK_REGISTER:
+			break;	
+	}
+	return ans;
+}
+
+int find_dominant_op(int p, int q) {
+	//char stack[50];
+	return 0;
+}
+uint32_t eval(int p, int q) {
+	if(p > q) {
+		panic("bad expression\n");
+	}
+	else if(p == q) {
+		assert(tokens[p].type == TK_DEC);
+		return token_value(p);
+	}
+	else if(check_parentheses(p,q) == true) {
+		return eval(p+1,q-1);
+	}
+	else {
+		return 0;	
+	}
 }
 
 uint32_t expr(char *e, bool *success) {
