@@ -145,10 +145,56 @@ uint32_t token_value(int index) {
 	return ans;
 }
 
-int find_dominant_op(int p, int q) {
-	//char stack[50];
-	return 0;
+int sign_priority[5][5] = \
+{
+//  _ , + ,- ,*, /
+	{0, 0, 0, 0, 0,},
+	{1, 1, 1, 1, 1,},
+	{1, 1, 1, 1, 1,},
+	{1, 0, 0, 1, 1,},
+	{1, 0, 0, 1, 1,},
+};
+
+
+int get_index(int token_type) {
+	switch (token_type) { 
+		case '+':
+			return 1;
+		case '-':
+			return 2;
+		case '*':
+			return 3;
+		case '/':
+			return 4;
+		default:
+			return 0;
+	} 
 }
+
+int check_priority(int p, int q) {
+	return sign_priority[get_index(tokens[p].type)][get_index(tokens[q].type)];
+}
+
+int find_dominant_op(int p, int q) {	
+	int op = p;
+	int bracket_count = 0;
+	for(int i = p; i <= q; i++) {
+		int token_type = tokens[i].type;
+		if(token_type == '(')
+		{
+			bracket_count++;
+			continue;
+		}
+		else if(token_type == ')')
+		{
+			bracket_count--;
+			continue;
+		}
+		if(bracket_count == 0 && check_priority(op, i) )op = i;
+	}
+	return op;
+}
+
 uint32_t eval(int p, int q) {
 	if(p > q) {
 		panic("bad expression\n");
@@ -161,6 +207,22 @@ uint32_t eval(int p, int q) {
 		return eval(p+1,q-1);
 	}
 	else {
+		int op = find_dominant_op(p, q);
+		uint32_t val1 = eval(p, op-1), val2 = eval(op+1, q);
+		switch (tokens[op].type)
+		{
+			case '+':
+				return val1+val2;
+			case '-':
+				return val1-val2;
+			case '*':
+				return val1*val2;
+			case '/':
+				return val1/val2;
+			default:
+				assert(0);
+		}
+		
 		return 0;	
 	}
 }
@@ -173,7 +235,5 @@ uint32_t expr(char *e, bool *success) {
 
   /* TODO: Insert codes to evaluate the expression. */
   *success = true;
-  
-
-  return 0;
+  return eval(0,nr_token);
 }
