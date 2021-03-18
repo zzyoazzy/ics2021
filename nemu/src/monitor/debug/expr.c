@@ -235,5 +235,6 @@ uint32_t expr(char *e, bool *success) {
 
   /* TODO: Insert codes to evaluate the expression. */
   *success = true;
+  printf("!!!!!!!!!!---%d\n",nr_token);
   return eval(0,nr_token);
 }
