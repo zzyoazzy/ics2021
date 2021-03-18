@@ -208,7 +208,7 @@ uint32_t eval(int p, int q) {
 	}
 	else {
 		int op = find_dominant_op(p, q);
-		printf("op=%d\n",op);
+		printf("op=%d\n",q);
 		uint32_t val1 = eval(p, op-1), val2 = eval(op+1, q);
 		switch (tokens[op].type)
 		{
