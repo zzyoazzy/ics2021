@@ -232,12 +232,10 @@ uint32_t eval(int p, int q) {
 	}
 	else {
 		int op = find_dominant_op(p, q);
-		printf("op=%d\n",op);
 		uint32_t val1 = eval(p, op-1), val2 = eval(op+1, q);
 		switch (tokens[op].type)
 		{
 			case '+':
-				printf("$eip=%d\n",val1);
 				return val1+val2;
 			case '-':
 				return val1-val2;
