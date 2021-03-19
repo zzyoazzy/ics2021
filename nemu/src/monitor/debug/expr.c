@@ -95,7 +95,7 @@ static bool make_token(char *e) {
 		  default:
 			tokens[nr_token].type = rules[i].token_type;
 			if(substr_len>32)panic("expression out of buffer!");
-			memcpy(tokens[nr_token].str,e+position,sizeof(char)*substr_len);
+			memcpy(tokens[nr_token].str,e+position, sizeof(char)*(substr_len+1) );
 			nr_token++;
 		}
 		position += substr_len;
