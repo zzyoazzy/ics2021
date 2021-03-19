@@ -123,8 +123,8 @@ bool check_parentheses(int p, int q) {
 		if(tokens[i].type == '(')num++;
 		else if(tokens[i].type == ')')num--;
 		if(num<0) {
-			return false;
 			printf("checking\n");
+			return false;
 		}
 	}
 	return num == 0;
