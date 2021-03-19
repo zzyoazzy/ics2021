@@ -227,7 +227,8 @@ uint32_t eval(int p, int q) {
 	else if(p == q) {
 		return token_value(p);
 	}
-	else if(check_parentheses(p,q) == true) {
+	else if(check_parentheses(p,q) ) {
+		printf("true\n");
 		return eval(p+1,q-1);
 	}
 	else {
