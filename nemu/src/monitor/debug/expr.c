@@ -141,18 +141,22 @@ uint32_t token_value(int index) {
 			break;
 		case TK_REGISTER:
 			for(int i = 0; i<8; ++i) {
-				if(strcmp(tk_p, regsl[i])==0) {
+				if(strcmp(tk_p+1, regsl[i])==0) {
 					ans = cpu.gpr[i]._32;
 					break;
 				}
-				else if(strcmp(tk_p, regsw[i])==0) {
+				else if(strcmp(tk_p+1, regsw[i])==0) {
 					ans = cpu.gpr[i]._16;
 					break;
 				}
-				else if(strcmp(tk_p, regsb[i])==0) {
+				else if(strcmp(tk_p+1, regsb[i])==0) {
 					if(i<4)
 						ans = cpu.gpr[i]._8[0];
 					else ans = cpu.gpr[i-4]._8[1];
+					break;
+				}
+				else if(strcmp(tk_p+1, "eip")==0) {
+					ans = cpu.eip;
 					break;
 				}
 
