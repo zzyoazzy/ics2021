@@ -133,6 +133,7 @@ uint32_t token_value(int index) {
 	int token_type = tokens[index].type;
 	int ans = 0;
 	char *tk_p = tokens[index].str;
+	printf("%s\n",tk_p);
 	switch(token_type) {
 		case TK_DEC:
 			sscanf(tk_p, "%d", &ans);
