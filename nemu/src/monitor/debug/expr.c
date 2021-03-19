@@ -160,7 +160,6 @@ uint32_t token_value(int index) {
 					ans = cpu.eip;
 					break;
 				}
-
 			}	
 			break;
 		default:
@@ -214,7 +213,7 @@ int find_dominant_op(int p, int q) {
 			bracket_count--;
 			continue;
 		}
-		if(bracket_count == 0 && check_priority(op, i) )op = i;
+		if(bracket_count == 0 && check_priority(op, i)==0 )op = i;
 	}
 	return op;
 }
