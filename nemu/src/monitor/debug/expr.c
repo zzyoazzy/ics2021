@@ -158,6 +158,7 @@ uint32_t token_value(int index) {
 				}
 				else if(strcmp(tk_p+1, "eip")==0) {
 					ans = cpu.eip;
+					printf("eipeipeip\n");
 					break;
 				}
 			}	
