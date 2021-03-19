@@ -117,7 +117,6 @@ static bool make_token(char *e) {
 
 
 bool check_parentheses(int p, int q) {
-	printf("checking\n");
 	int num = 0;
 	if(tokens[p].type!='{'||tokens[q].type!=')')return false;
 	for(int i = p; i <= q; ++i) {
@@ -126,7 +125,7 @@ bool check_parentheses(int p, int q) {
 		
 		if(num<0)return false;
 	}
-	
+	printf("checking\n");
 	return num == 0;
 }
 
