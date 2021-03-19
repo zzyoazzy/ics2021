@@ -119,7 +119,7 @@ static bool make_token(char *e) {
 bool check_parentheses(int p, int q) {
 
 	int num = 0;
-	if(tokens[p].type!='{'||tokens[p].type!=')')return false;
+	if(tokens[p].type!='{'||tokens[q].type!=')')return false;
 	for(int i = p; i <= q; ++i) {
 		if(tokens[i].type == '(')num++;
 		else if(tokens[i].type == ')')num--;
@@ -160,7 +160,6 @@ uint32_t token_value(int index) {
 				}
 				else if(strcmp(tk_p+1, "eip")==0) {
 					ans = cpu.eip;
-					printf("eipeipeip\n");
 					break;
 				}
 			}	
