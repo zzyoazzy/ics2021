@@ -122,8 +122,8 @@ bool check_parentheses(int p, int q) {
 	for(int i = p; i <= q; ++i) {
 		if(tokens[i].type == '(')num++;
 		else if(tokens[i].type == ')')num--;
+		printf("checking num = %d\n",num);
 		if(num<0) {
-			printf("checking\n");
 			return false;
 		}
 	}
