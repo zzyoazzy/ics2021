@@ -116,6 +116,7 @@ static bool make_token(char *e) {
 
 
 bool check_parentheses(int p, int q) {
+
 	int num = 0;
 	if(tokens[p].type!='{'||tokens[p].type!=')')return false;
 	for(int i = p; i <= q; ++i) {
@@ -161,6 +162,7 @@ uint32_t token_value(int index) {
 				}
 
 			}	
+			break;
 		default:
 			assert(0);
 	}
