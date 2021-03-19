@@ -140,7 +140,25 @@ uint32_t token_value(int index) {
 			sscanf(tk_p+2, "%x", &ans);
 			break;
 		case TK_REGISTER:
-			break;	
+			for(int i = 0; i<8; ++i) {
+				if(strcmp(tk_p, regsl[i])==0) {
+					ans = cpu.gpr[i]._32;
+					break;
+				}
+				else if(strcmp(tk_p, regsw[i])==0) {
+					ans = cpu.gpr[i]._16;
+					break;
+				}
+				else if(strcmp(tk_p, regsb[i])==0) {
+					if(i<4)
+						ans = cpu.gpr[i]._8[0];
+					else ans = cpu.gpr[i-4]._8[1];
+					break;
+				}
+
+			}	
+		default:
+			assert(0);
 	}
 	return ans;
 }
