@@ -200,7 +200,6 @@ uint32_t eval(int p, int q) {
 		panic("bad expression\n");
 	}
 	else if(p == q) {
-		assert(tokens[p].type == TK_DEC);
 		return token_value(p);
 	}
 	else if(check_parentheses(p,q) == true) {
