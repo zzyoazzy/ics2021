@@ -200,6 +200,8 @@ int get_index(int token_type) {
 			return 3;
 		case '/':
 			return 4;
+		case TK_EQ:
+			return 5;
 		default:
 			return 0;
 	} 
