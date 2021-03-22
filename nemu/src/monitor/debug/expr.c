@@ -7,12 +7,19 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ,
-
+  TK_NOTYPE = 256,
+  TK_EQ,				//equal
+  TK_UEQ,				//unequal
   /* TODO: Add more token types */
   TK_REGISTER,			//register
   TK_HEX,				//hex
   TK_DEC,				//dec
+  TK_AND,				//and
+  TK_OR,				//or
+  TK_NOT,				//not
+  //special
+  TK_DEREF,				//*dereference
+  TK_NEGATIVE,			//-negative
 };
 
 static struct rule {
@@ -32,10 +39,13 @@ static struct rule {
   {"\\(", '('},			// left bracket
   {"\\)", ')'},			// right bracket
   {"\\$[a-z]+", TK_REGISTER}, // register
-  {"0[xX][0-9a-fA-F]+", TK_HEX},//hex
-  {"[0-9]+", TK_DEC},	//dec
+  {"0[xX][0-9a-fA-F]+", TK_HEX},// hex
+  {"[0-9]+", TK_DEC},	// dec
   {"==", TK_EQ},        // equal
-
+  {"!=", TK_UEQ},		// unequal
+  {"&&", TK_AND},		// and
+  {"||", TK_OR},		// or
+  {"!",  TK_NOT},		// not
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -168,14 +178,15 @@ uint32_t token_value(int index) {
 	return ans;
 }
 
-int sign_priority[5][5] = \
+int sign_priority[6][6] = \
 {
-//  _ , + ,- ,*, /
-	{0, 0, 0, 0, 0,},
-	{1, 0, 0, 1, 1,},
-	{1, 0, 0, 1, 1,},
-	{1, 0, 0, 0, 0,},
-	{1, 0, 0, 0, 0,},
+//   _  +  -  *  / ==
+	{0, 0, 0, 0, 0, 0,},	//'-'
+	{1, 0, 0, 1, 1, 1,},	//'+'
+	{1, 0, 0, 1, 1, 1,},	//'-'
+	{1, 0, 0, 0, 0, 1,},	//'*'
+	{1, 0, 0, 0, 0, 1,},	//'/'
+	{1, 0, 0, 0, 0, 0,},	//'=='
 };
 
 
