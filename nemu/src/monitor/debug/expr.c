@@ -178,15 +178,16 @@ uint32_t token_value(int index) {
 	return ans;
 }
 
-int sign_priority[6][6] = \
+int sign_priority[][7] = \
 {
-//   _  +  -  *  / ==
-	{0, 0, 0, 0, 0, 0,},	//'-'
-	{1, 0, 0, 1, 1, 0,},	//'+'
-	{1, 0, 0, 1, 1, 0,},	//'-'
-	{1, 0, 0, 0, 0, 0,},	//'*'
-	{1, 0, 0, 0, 0, 0,},	//'/'
-	{1, 1, 1, 1, 1, 1,},	//'=='
+//   _  +  -  *  / ==  !=
+	{0, 0, 0, 0, 0, 0, 0,},	//'_'
+	{1, 0, 0, 1, 1, 0, 0,},	//'+'
+	{1, 0, 0, 1, 1, 0, 0,},	//'-'
+	{1, 0, 0, 0, 0, 0, 0,},	//'*'
+	{1, 0, 0, 0, 0, 0, 0,},	//'/'
+	{1, 1, 1, 1, 1, 0, 0,},	//'=='
+	{1, 1, 1, 1, 1, 0, 0,}, //'!='
 };
 
 
@@ -202,6 +203,8 @@ int get_index(int token_type) {
 			return 4;
 		case TK_EQ:
 			return 5;
+		case TK_UEQ:
+			return 6;
 		default:
 			return 0;
 	} 
@@ -256,6 +259,8 @@ uint32_t eval(int p, int q) {
 				return val1/val2;
 			case TK_EQ:
 				return val1==val2;
+			case TK_UEQ:
+				return val1!=val2;
 			default:
 				assert(0);
 		}
