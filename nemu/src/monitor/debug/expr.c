@@ -207,6 +207,8 @@ int get_index(int token_type) {
 			return 5;
 		case TK_UEQ:
 			return 6;
+		case TK_AND:
+			return 7;
 		default:
 			return 0;
 	} 
@@ -263,12 +265,14 @@ uint32_t eval(int p, int q) {
 				return val1==val2;
 			case TK_UEQ:
 				return val1!=val2;
+			case TK_AND:
+				return val1&&val2;
 			default:
 				assert(0);
-		}
+	 	}
 		
 		return 0;	
-	}
+	} 
 }
 
 uint32_t expr(char *e, bool *success) {
