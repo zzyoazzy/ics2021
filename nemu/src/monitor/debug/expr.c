@@ -262,7 +262,9 @@ uint32_t eval(int p, int q) {
 	else {
 		int op = find_dominant_op(p, q);
 		uint32_t val1,val2;
-		if(tokens[op].type!=TK_DEREF||tokens[op].type!=TK_NEGATIVE||tokens[op].type!=TK_NOT)val1 = eval(p, op-1);
+		if(tokens[op].type!=TK_DEREF&&tokens[op].type!=TK_NEGATIVE&&tokens[op].type!=TK_NOT)
+			val1 = eval(p, op-1);
+		else val1 = 0;
 	   	val2 = eval(op+1, q);
 		switch (tokens[op].type)
 		{
