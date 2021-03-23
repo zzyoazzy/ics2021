@@ -178,18 +178,21 @@ uint32_t token_value(int index) {
 	return ans;
 }
 
-int sign_priority[][9] = \
+int sign_priority[][12] = \
 {
-//   _  +  -  *  / ==  != && ||
-	{0, 0, 0, 0, 0, 0, 0, 0, 0,},	//'_'
-	{1, 1, 0, 1, 1, 0, 0, 0, 0,},	//'+'
-	{1, 0, 1, 1, 1, 0, 0, 0, 0,},	//'-'
-	{1, 0, 0, 1, 1, 0, 0, 0, 0,},	//'*'
-	{1, 0, 0, 1, 1, 0, 0, 0, 0,},	//'/'
-	{1, 1, 1, 1, 1, 1, 1, 0, 0,},	//'=='
-	{1, 1, 1, 1, 1, 1, 1, 0, 0,},   //'!='
-	{1, 1, 1, 1, 1, 0, 0, 1, 0,},	//'&&'
-	{1, 1, 1, 1, 1, 0, 0, 0, 1,},	//'||'
+//   _  +  -  *  / ==  != && || ! '*' '-'
+	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,},	//'_'
+	{1, 1, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1,},	//'+'
+	{1, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1,},	//'-'
+	{1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1,},	//'*'
+	{1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1,},	//'/'
+	{1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1,},	//'=='
+	{1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1,},  //'!='
+	{1, 1, 1, 1, 1, 0, 0, 1, 0, 1, 1, 1,},	//'&&'
+	{1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1,},	//'||'
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,},	//not
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,},  //dereference
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,},  //negative
 };
 
 
@@ -211,6 +214,12 @@ int get_index(int token_type) {
 			return 7;
 		case TK_OR:
 			return 8;
+		case TK_NOT:
+			return 9;
+		case TK_DEREF:
+			return 10;
+		case TK_NEGATIVE:
+			return 11;
 		default:
 			return 0;
 	} 
@@ -271,6 +280,12 @@ uint32_t eval(int p, int q) {
 				return val1&&val2;
 			case TK_OR:
 				return val1||val2;
+			case TK_NOT:
+				return !val2;
+			case TK_NEGATIVE:
+				return -1*val2;
+			case TK_DEREF:
+				return *(uint32_t*)val2;
 			default:
 				assert(0);
 	 	}
@@ -287,5 +302,19 @@ uint32_t expr(char *e, bool *success) {
 
   /* TODO: Insert codes to evaluate the expression. */
   *success = true;
+  
+  for(int i = 0; i < nr_token; i++) { 
+	  if(tokens[i].type == '*' && (i ==0 || tokens[i-1].type != TK_DEC ||\
+											tokens[i-1].type != TK_HEX ||\
+											tokens[i-1].type != TK_REGISTER ) ) {
+		tokens[i].type = TK_DEREF;
+	  }  
+      if(tokens[i].type == '-' && (i ==0 || tokens[i-1].type != TK_DEC ||\
+											tokens[i-1].type != TK_HEX ||\
+											tokens[i-1].type != TK_REGISTER ) ) {
+		tokens[i].type = TK_NEGATIVE;
+	  } 
+  }
+
   return eval(0,nr_token-1);
 }
