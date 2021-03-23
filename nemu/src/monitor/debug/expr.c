@@ -44,7 +44,7 @@ static struct rule {
   {"==", TK_EQ},        // equal
   {"!=", TK_UEQ},		// unequal
   {"&&", TK_AND},		// and
-  {"||", TK_OR},		// or
+  {"\\|\\|", TK_OR},		// or
   {"!",  TK_NOT},		// not
 };
 
