@@ -251,9 +251,7 @@ int find_dominant_op(int p, int q) {
 
 uint32_t eval(int p, int q) {
 	if(p > q) {
-		if(tokens[p].type!=TK_DEREF||tokens[p].type!=TK_NEGATIVE||tokens[p].type!=TK_NOT)panic("bad expression\n");
-		else return 0;
-
+		panic("bad expression\n");
 	}
 	else if(p == q) {
 		return token_value(p);
@@ -263,7 +261,9 @@ uint32_t eval(int p, int q) {
 	}
 	else {
 		int op = find_dominant_op(p, q);
-		uint32_t val1 = eval(p, op-1), val2 = eval(op+1, q);
+		uint32_t val1,val2;
+		if(tokens[op].type!=TK_DEREF||tokens[op].type!=TK_NEGATIVE||tokens[op].type!=TK_NOT)val1 = eval(p, op-1);
+	   	val2 = eval(op+1, q);
 		switch (tokens[op].type)
 		{
 			case '+':
