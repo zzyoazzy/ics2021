@@ -289,7 +289,7 @@ uint32_t eval(int p, int q) {
 			case TK_NEGATIVE:
 				return -1*val2;
 			case TK_DEREF:
-				return *(uint32_t*)val2;
+				return vaddr_read(val2,4);
 			default:
 				assert(0);
 	 	}
