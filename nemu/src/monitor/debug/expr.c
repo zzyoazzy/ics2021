@@ -249,23 +249,25 @@ int find_dominant_op(int p, int q) {
 	return op;
 }
 
-uint32_t eval(int p, int q) {
+uint32_t eval(int p, int q, bool *error) {
+	if(error)return 0;
 	if(p > q) {
-		panic("bad expression\n");
+		*error = true;
+		return 0;
 	}
 	else if(p == q) {
 		return token_value(p);
 	}
 	else if(check_parentheses(p,q) ) {
-		return eval(p+1,q-1);
+		return eval(p+1,q-1,error);
 	}
 	else {
 		int op = find_dominant_op(p, q);
 		uint32_t val1,val2;
 		if(tokens[op].type!=TK_DEREF&&tokens[op].type!=TK_NEGATIVE&&tokens[op].type!=TK_NOT)
-			val1 = eval(p, op-1);
+			val1 = eval(p, op-1, error);
 		else val1 = 0;
-	   	val2 = eval(op+1, q);
+	   	val2 = eval(op+1, q, error);
 		switch (tokens[op].type)
 		{
 			case '+':
@@ -323,6 +325,8 @@ uint32_t expr(char *e, bool *success) {
 		tokens[i].type = TK_NEGATIVE;
 	  } 
   }
-
-  return eval(0,nr_token-1);
+  bool error = false;
+  uint32_t res = eval(0,nr_token-1, &error);
+  if(error)*success = false;
+  return res;
 }
