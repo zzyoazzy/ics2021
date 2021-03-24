@@ -293,7 +293,8 @@ uint32_t eval(int p, int q, bool *error) {
 			case TK_DEREF:
 				return vaddr_read(val2,4);
 			default:
-				assert(0);
+				*error = true;
+				return 0;
 	 	}
 		
 		return 0;	
