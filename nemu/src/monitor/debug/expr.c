@@ -250,7 +250,7 @@ int find_dominant_op(int p, int q) {
 }
 
 uint32_t eval(int p, int q, bool *error) {
-	if(error)return 0;
+	if(*error)return 0;
 	if(p > q) {
 		*error = true;
 		return 0;
