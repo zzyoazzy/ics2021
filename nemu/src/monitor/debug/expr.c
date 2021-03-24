@@ -39,8 +39,8 @@ static struct rule {
   {"\\(", '('},			// left bracket
   {"\\)", ')'},			// right bracket
   {"\\$[a-z]+", TK_REGISTER}, // register
-  {"0[xX][0-9a-fA-F]+", TK_HEX},// hex
-  {"[0-9]+", TK_DEC},	// dec
+  {"^0[xX][0-9a-fA-F]+$", TK_HEX},// hex
+  {"^[0-9]+$", TK_DEC},	// dec
   {"==", TK_EQ},        // equal
   {"!=", TK_UEQ},		// unequal
   {"&&", TK_AND},		// and
