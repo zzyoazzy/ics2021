@@ -41,7 +41,7 @@ static int cmd_si(char *args);
 static int cmd_info(char *args);
 static int cmd_x(char *args);
 static int cmd_p(char *args);
-
+static int cmd_w(char *args);
 
 static struct {
   char *name;
@@ -58,6 +58,7 @@ static struct {
   { "info", "Generic command for showing things about the program being debugged.", cmd_info },
   { "x", "Examine memory", cmd_x},
   { "p", "Print value of expression EXP.", cmd_p},
+  { "w", "Set a watchpoint for an expression.", cmd_w},
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
@@ -195,6 +196,23 @@ static int cmd_p(char *args) {
 		return 0;
 	}
 	printf("%d\n",ans);
+	return 0;
+}
+
+static int cmd_w(char *args) {
+	bool success;
+	uint32_t ans = expr(args, &success);
+	if(!success) {
+		printf("syntax error\n");
+		return 0;
+	}
+	WP *wp = new_wp();
+	wp = (WP*)malloc(sizeof(char)*(strlen(args)+1));
+	strcpy(args,wp->expr);
+	wp->old_val = ans;
+	printf("Set watchpoint #%d\n",wp->NO);
+	printf("expr   = %s\n",wp->expr);
+	printf("old value = 0x%x\n",wp->old_val);
 	return 0;
 }
 
