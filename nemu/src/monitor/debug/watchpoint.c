@@ -79,3 +79,15 @@ void free_wp(WP *wp) {
   wp->NO = current->NO+1;
   wp->next = NULL;
 }
+int set_watchpoint(char *e) {
+  bool success;
+  uint32_t ans = expr(e, &success);
+  if(!success)return -1;
+  WP *wp = new_wp();
+  if(wp == NULL)return -2;
+  wp->expr = (char*)malloc(sizeof(char)*(strlen(e)+1));
+  strcpy(wp->expr,e);
+  wp->old_val = ans;
+  return wp->NO;
+}
+
