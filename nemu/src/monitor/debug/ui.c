@@ -211,7 +211,7 @@ static int cmd_w(char *args) {
 	strcpy(wp->expr,args);
 	wp->old_val = ans;
 	printf("Set watchpoint #%d\n",wp->NO);
-	printf("expr   = %s\n",wp->expr);
+	printf("expr      = %s\n",wp->expr);
 	printf("old value = 0x%x\n",wp->old_val);
 	return 0;
 }
