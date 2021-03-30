@@ -206,13 +206,14 @@ static int cmd_w(char *args) {
 		printf("syntax error\n");
 		return 0;
 	}
-	WP *wp = new_wp();
-	wp = (WP*)malloc(sizeof(char)*(strlen(args)+1));
-	strcpy(args,wp->expr);
-	wp->old_val = ans;
-	printf("Set watchpoint #%d\n",wp->NO);
-	printf("expr   = %s\n",wp->expr);
-	printf("old value = 0x%x\n",wp->old_val);
+	ans++;
+//	WP *wp = new_wp();
+//	wp = (WP*)malloc(sizeof(char)*(strlen(args)+1));
+//	strcpy(args,wp->expr);
+//	wp->old_val = ans;
+//	printf("Set watchpoint #%d\n",wp->NO);
+//	printf("expr   = %s\n",wp->expr);
+//	printf("old value = 0x%x\n",wp->old_val);
 	return 0;
 }
 
