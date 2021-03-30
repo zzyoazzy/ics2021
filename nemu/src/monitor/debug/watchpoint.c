@@ -29,12 +29,34 @@ WP* new_wp() {
   if(free_==NULL)return NULL;
   WP *current = free_;
   free_ = free_->next;
+  current->next = NULL;
   ID++;
+  WP *tail = head;
+  if(tail==NULL)
+  {
+	head = current;
+  }
+  else 
+  {
+	while(tail->next!=NULL)tail = tail->next;
+	tail->next = current;
+  }
   return current;
 }
 
 void free_wp(WP *wp) {
   if(wp == NULL)return;
+  WP *prev = head;
+  if(head == wp)
+  {
+	head = wp->next;
+  }
+  else
+  {
+    while(prev->next!=wp)prev = prev->next;
+	assert(prev!=NULL);
+	prev->next = wp->next;
+  }
   if(wp->expr!=NULL)
   {
     free(wp->expr);
