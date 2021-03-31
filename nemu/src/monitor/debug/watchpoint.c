@@ -128,6 +128,7 @@ WP* scan_watchpoint() {
 	uint32_t ans = expr(p_current->expr,NULL);
     if(ans!=p_current->old_val)
 	{
+	  printf("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 	  p_current->new_val = ans;
 	  return p_current;
 	}

@@ -33,7 +33,7 @@ void cpu_exec(uint64_t n) {
   WP* wp;
   do {
 	  wp = scan_watchpoint();
-	/*  if(wp!=NULL)
+	  if(wp!=NULL)
 	  {
 		nemu_state = NEMU_STOP;
 		printf("Hit watchpoint %d at address 0x%x\n",wp->NO,cpu.eip);
@@ -41,7 +41,7 @@ void cpu_exec(uint64_t n) {
 		printf("old value   = 0x%x\n",wp->old_val);
 		printf("new value   = 0x%x\n",wp->new_val);
 		wp->old_val = wp->new_val;
-	  }*/
+	  }
   }while(wp!=NULL);
   if(nemu_state == NEMU_STOP)
   {
