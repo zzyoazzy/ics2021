@@ -113,10 +113,10 @@ void delete_all_watchpoints() {
 void list_watchpoint() {
   WP *current = head;
   if(head == NULL)printf("No watchpoints\n");
-  else printf("NO  Expr				Old Value\n");
+  else printf("NO  Expr		  Old Value\n");
   while(current)
   {
-	printf("%d  %s			0x%x\n",current->NO,current->expr,current->old_val);
+	printf("%d   %s			0x%x\n",current->NO,current->expr,current->old_val);
 	current = current->next;
   }
 }
