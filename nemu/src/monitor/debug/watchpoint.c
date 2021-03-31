@@ -35,14 +35,14 @@ WP* new_wp() {
   ID++;
   WP *tail = head;
   if(tail==NULL)
-  {
+  { 
 	head = current;
   }
   else 
   {
 	while(tail->next!=NULL)tail = tail->next;
 	tail->next = current;
-  }
+  } 
   return current;
 }
 
@@ -63,10 +63,10 @@ void free_wp(WP *wp) {
   {
     free(wp->expr);
     wp->expr = NULL;
-  }
+  } 
   wp->old_val = wp->new_val = 0;
   if(free_==NULL)
-  {
+  { 
 	free_ = wp;
 	wp->NO = ID;
 	wp->next = NULL;
@@ -76,7 +76,7 @@ void free_wp(WP *wp) {
   while(current->next!=NULL)
   {
 	  current = current->next;
-  }
+  } 
   current->next = wp;
   wp->NO = current->NO+1;
   wp->next = NULL;
@@ -107,7 +107,7 @@ void delete_all_watchpoints() {
     current = current->next;
 	free_wp(prev);
 	prev = current;
-  }
+  } 
 }
 
 void list_watchpoint() {
@@ -116,7 +116,7 @@ void list_watchpoint() {
   else printf("NO  Expr		 Old Value\n");
   while(current)
   {
-	printf("%d   %s		 0x%x\n",current->NO,current->expr,current->old_val);
+	printf("%d   %s		 0x%08x\n",current->NO,current->expr,current->old_val);
 	current = current->next;
   }
 }

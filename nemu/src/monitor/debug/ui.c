@@ -192,7 +192,7 @@ static int cmd_x(char *args) {
 			value/=256;
 		}
 		printf("\n");
-	}
+	} 
 	return 0;
 }
 
@@ -213,14 +213,14 @@ static int cmd_w(char *args) {
 	if(!success) {
 		printf("syntax error\n");
 		return 0;
-	}
+	} 
 	WP *wp = new_wp();
 	wp->expr = (char*)malloc(sizeof(char)*(strlen(args)+1));
 	strcpy(wp->expr,args);
 	wp->old_val = ans;
 	printf("Set watchpoint #%d\n",wp->NO);
 	printf("expr      = %s\n",wp->expr);
-	printf("old value = 0x%x\n",wp->old_val);
+	printf("old value = 0x%08x\n",wp->old_val);
 	return 0;
 }
 
@@ -236,27 +236,27 @@ static int cmd_d(char *args) {
 		{
 		  delete_all_watchpoints();
 		  break;
-		}
+	 	}
 		else if(input == 'n' || input == 'N')
 		{
 		  break;
-		}
+	 	}
 		else
 		{
 		  printf("Please answer y or n.\n");
-		}
-	  }
-	}
+	 	}
+	   }
+	} 
 	else
 	{
       int NO;
 	  sscanf(args,"%d",&NO);
 	  if(delete_watchpoint(NO))
-	  {
+	   {
 		printf("watchpoint %d deleted\n",NO);
 	  }
 	  else printf("No breakpoint number %d",NO);
-	}
+	} 
 	return 0;
 }
 
