@@ -42,6 +42,8 @@ static int cmd_info(char *args);
 static int cmd_x(char *args);
 static int cmd_p(char *args);
 static int cmd_w(char *args);
+static int cmd_d(char *args);
+
 
 static struct {
   char *name;
@@ -59,6 +61,7 @@ static struct {
   { "x", "Examine memory", cmd_x},
   { "p", "Print value of expression EXP.", cmd_p},
   { "w", "Set a watchpoint for an expression.", cmd_w},
+  { "d", "Delete a breakpoint.", cmd_d},
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
@@ -136,7 +139,11 @@ static int cmd_info(char *args){
 		}*/
 	}
 	else if(*arg == 'w') {
-
+		list_watchpoint();
+	}
+	else 
+	{
+		printf("Undefined info command.\n");
 	}
 	return 0;
 }
@@ -213,6 +220,42 @@ static int cmd_w(char *args) {
 	printf("Set watchpoint #%d\n",wp->NO);
 	printf("expr      = %s\n",wp->expr);
 	printf("old value = 0x%x\n",wp->old_val);
+	return 0;
+}
+
+static int cmd_d(char *args) {
+	if(args == NULL)
+	{
+	  printf("Delete all breakpoints? (y or n)\n");
+	  while(true)
+	  {
+		char input;
+        sscanf("%c",&input);
+	    if(input == 'y' || input == 'Y')
+		{
+		  delete_all_watchpoints();
+		  break;
+		}
+		else if(input == 'n' || input == 'N')
+		{
+		  break;
+		}
+		else
+		{
+		  printf("Please answer y or n.\n");
+		}
+	  }
+	}
+	else
+	{
+      int NO;
+	  sscanf(args,"%d",&NO);
+	  if(delete_watchpoint(NO))
+	  {
+		printf("watchpoint %d deleted\n",NO);
+	  }
+	  else printf("No breakpoint number %d",NO);
+	}
 	return 0;
 }
 

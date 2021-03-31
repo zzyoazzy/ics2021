@@ -9,16 +9,18 @@ static WP wp_pool[NR_WP];
 static WP *head, *free_;
 
 static int ID;
+WP* p_current;
 
 void init_wp_pool() {
   int i;
-  for (i = 0; i < NR_WP; i ++) {
+  for (i = 0;  i < NR_WP; i ++) {
     wp_pool[i].NO = i;
     wp_pool[i].next = &wp_pool[i + 1];
   }
   wp_pool[NR_WP - 1].next = NULL;
 
   head = NULL;
+  p_current = NULL;
   free_ = wp_pool;
 }
 
@@ -89,5 +91,47 @@ int set_watchpoint(char *e) {
   strcpy(wp->expr,e);
   wp->old_val = ans;
   return wp->NO;
+}
+
+bool delete_watchpoint(int NO) {
+  WP *current = head;
+  while(current && current->NO!=NO)current = current->next;
+  if(!current)return false;
+  else free_wp(current);
+  return true;
+}
+
+void delete_all_watchpoints() {
+  WP *current = head, *prev = head;
+  while(current){
+    current = current->next;
+	free_wp(prev);
+	prev = current;
+  }
+}
+
+void list_watchpoint() {
+  WP *current = head;
+  if(head == NULL)printf("No watchpoints\n");
+  else printf("NO  Expr				Old Value\n");
+  while(current)
+  {
+	printf("%d  %s			0x%x\n",current->NO,current->expr,current->old_val);
+  }
+}
+
+WP* scan_watchpoint() {
+  if(p_current == NULL)p_current = head;
+  while(p_current)
+  {
+	uint32_t ans = expr(p_current->expr,NULL);
+    if(ans!=p_current->old_val)
+	{
+	  p_current->new_val = ans;
+	  return p_current;
+	}
+	p_current = p_current->next;
+  }
+  return NULL;
 }
 
