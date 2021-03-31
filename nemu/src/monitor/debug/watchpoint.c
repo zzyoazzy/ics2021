@@ -116,7 +116,7 @@ void list_watchpoint() {
   else printf("NO  Expr		 Old Value\n");
   while(current)
   {
-	printf("%d   %s		0x%x\n",current->NO,current->expr,current->old_val);
+	printf("%d   %s		 0x%x\n",current->NO,current->expr,current->old_val);
 	current = current->next;
   }
 }
