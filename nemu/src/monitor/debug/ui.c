@@ -94,7 +94,7 @@ static int cmd_si(char *args) {
 	bool negative = false;
 	uint64_t step = 0;
 
-	if(arg != NULL) {
+	if(arg != NULL) { 
 		if(*arg == '-') {
 			negative = true;
 			arg++;
@@ -122,6 +122,7 @@ static int cmd_info(char *args){
 	if(arg == NULL) {
 		printf("List of info subcommands:\n");
 		printf("info r -- List of integr registers and their contents\n");	
+		printf("info w -- Status of specified watchpoints (all watchpoints if no argument)\n"); 
 	}
 	else if(*arg == 'r') {
 		for(int i = 0;i < 8;++i) {

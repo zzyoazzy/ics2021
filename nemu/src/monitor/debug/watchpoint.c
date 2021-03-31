@@ -117,6 +117,7 @@ void list_watchpoint() {
   while(current)
   {
 	printf("%d  %s			0x%x\n",current->NO,current->expr,current->old_val);
+	current = current->next;
   }
 }
 
