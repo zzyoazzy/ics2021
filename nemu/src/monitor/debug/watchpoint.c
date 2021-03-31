@@ -81,6 +81,7 @@ void free_wp(WP *wp) {
   wp->NO = current->NO+1;
   wp->next = NULL;
 }
+
 int set_watchpoint(char *e) {
   bool success;
   uint32_t ans = expr(e, &success);
