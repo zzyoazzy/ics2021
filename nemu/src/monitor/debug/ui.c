@@ -232,6 +232,7 @@ static int cmd_d(char *args) {
 	  {
 		char input;
         scanf("%c",&input);
+		getchar();
 	    if(input == 'y' || input == 'Y')
 		{
 		  delete_all_watchpoints();
