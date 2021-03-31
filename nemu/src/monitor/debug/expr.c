@@ -143,6 +143,7 @@ uint32_t token_value(int index) {
 	int token_type = tokens[index].type;
 	int ans = 0;
 	char *tk_p = tokens[index].str;
+	bool found = false;
 	switch(token_type) { 
 		case TK_DEC:
 			sscanf(tk_p, "%d", &ans);
@@ -154,26 +155,31 @@ uint32_t token_value(int index) {
 			for(int i = 0; i<8; ++i) {
 				if(strcmp(tk_p+1, regsl[i])==0) {
 					ans = cpu.gpr[i]._32;
+					found = true;
 					break;
 				}
 				else if(strcmp(tk_p+1, regsw[i])==0) {
 					ans = cpu.gpr[i]._16;
+					found = true;
 					break;
 				}
 				else if(strcmp(tk_p+1, regsb[i])==0) {
 					if(i<4)
 						ans = cpu.gpr[i]._8[0];
 					else ans = cpu.gpr[i-4]._8[1];
+					found = true;
 					break;
 				}
 				else if(strcmp(tk_p+1, "eip")==0) {
 					ans = cpu.eip;
+					found = true;
 					break;
 				}
 			}	
-			break;
+			if(found)break;
+			else panic("No such register\n");
 		default:
-			assert(0);
+			panic("Invalid experssion\n");
 	}
 	return ans;
 }
