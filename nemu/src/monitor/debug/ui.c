@@ -215,6 +215,11 @@ static int cmd_w(char *args) {
 		return 0;
 	} 
 	WP *wp = new_wp();
+	if(wp == NULL)
+	{
+	  printf("There are no extra watchpoints in the pool.\n");
+	  return 0;
+	}
 	wp->expr = (char*)malloc(sizeof(char)*(strlen(args)+1));
 	strcpy(wp->expr,args);
 	wp->old_val = ans;
