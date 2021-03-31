@@ -125,10 +125,10 @@ WP* scan_watchpoint() {
   if(p_current == NULL)p_current = head;
   while(p_current)
   {
-	uint32_t ans = expr(p_current->expr,NULL);
+	bool success;
+	uint32_t ans = expr(p_current->expr,&success);
     if(ans!=p_current->old_val)
 	{
-	  printf("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 	  p_current->new_val = ans;
 	  return p_current;
 	}
