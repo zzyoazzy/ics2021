@@ -177,7 +177,7 @@ uint32_t token_value(int index) {
 				}
 			}	
 			if(found)break;
-			else panic("No such register");
+			else panic("No such register: %s",tk_p+1);
 		default:
 			panic("Invalid experssion");
 	}
