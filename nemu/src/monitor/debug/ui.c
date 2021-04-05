@@ -175,29 +175,25 @@ static int cmd_x(char *args) {
 		}
 		else
 		{
+			negative = true;
 			vaddr = -num;
 		}
 		num = 1;
 	}
 	else
 	{
-		int tmp = expr(arg , &success);
+		vaddr  = expr(arg , &success);
 		if(!success)
 		{
 			printf("syntax error\n");
 			return 0;
 		}
-		if(tmp>=0)
+		if(num<0)
 		{
-			vaddr = tmp;
-		}
-		else
-		{
-			vaddr = -tmp;
+			num = -num;
 			negative = true;
 		}
 	}
-
 	printf("Address         Dword block     Byte sequence\n");
 	for(int i = 0;i < num;++i) {
 		uint32_t addr = negative?vaddr-i*4:vaddr+i*4;
@@ -206,9 +202,9 @@ static int cmd_x(char *args) {
 		for(int j = 0;j < 4;j++) {
 			printf("%02x ",value%256);
 			value/=256;
-		}
+	 	}
 		printf("\n");
-	} 
+	}  
 	return 0;
 }
 
