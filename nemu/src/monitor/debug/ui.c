@@ -158,30 +158,46 @@ static int cmd_x(char *args) {
 	if(arg == NULL) {
 		printf("Argument required (starding display address).\n");
 		return 0;
-	}	
-
-	if(*arg == '-') {
-		negative = true;
-		arg++;
+	}	 
+	bool success;
+	num = expr(arg , &success);
+	if(!success)
+	{
+		printf("syntax error\n");
+		return 0;
 	}
-	
-	if(*arg!='0') {
-		while(*arg!='\0') {
-			num*=10;
-			num+=*arg - '0';
-			arg++;
+	arg = strtok(NULL," ");
+	if(arg == NULL)
+   	{
+		if(num>=0)
+		{
+			vaddr = num;
 		}
-		arg = strtok(NULL," ");
+		else
+		{
+			vaddr = -num;
+		}
+		num = 1;
 	}
 	else
 	{
-		if(*(arg+1)!='x'&&*(arg+1)!='X') {
+		int tmp = expr(arg , &success);
+		if(!success)
+		{
+			printf("syntax error\n");
 			return 0;
 		}
-		else num = 1;
+		if(tmp>=0)
+		{
+			vaddr = tmp;
+		}
+		else
+		{
+			vaddr = -tmp;
+			negative = true;
+		}
 	}
-	arg+=2;
-	sscanf(arg,"%x",&vaddr);
+
 	printf("Address         Dword block     Byte sequence\n");
 	for(int i = 0;i < num;++i) {
 		uint32_t addr = negative?vaddr-i*4:vaddr+i*4;
