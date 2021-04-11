@@ -300,7 +300,7 @@ static int cmd_b(char *args)
 	wp->expr = (char*)malloc(sizeof(char)*strlen(new_args)+1);
 	strcpy(wp->expr,new_args);
 	wp->old_val = ans;
-	printf("Set breakpoint at 0x%x.\n",addr);
+	printf("Set breakpoint at 0x%08x.\n",addr);
 	return 0;
 }
 
