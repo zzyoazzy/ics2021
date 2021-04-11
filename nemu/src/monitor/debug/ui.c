@@ -43,7 +43,7 @@ static int cmd_x(char *args);
 static int cmd_p(char *args);
 static int cmd_w(char *args);
 static int cmd_d(char *args);
-
+static int cmd_b(char *args);
 
 static struct {
   char *name;
@@ -62,6 +62,7 @@ static struct {
   { "p", "Print value of expression EXP.", cmd_p},
   { "w", "Set a watchpoint for an expression.", cmd_w},
   { "d", "Delete a breakpoint.", cmd_d},
+  { "b", "Set breakpoint at specified location.",cmd_b},
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
@@ -275,6 +276,31 @@ static int cmd_d(char *args) {
 	  }
 	  else printf("No breakpoint number %d",NO);
 	} 
+	return 0;
+}
+
+static int cmd_b(char *args)
+{
+	bool success;
+	char new_args[100] = "$eip==(";
+	strcat(new_args,args);
+	strcat(new_args,")");
+	uint32_t ans = expr(new_args, &success);
+	uint32_t addr = expr(args, &success);
+	if(!success) {
+		printf("syntax error\n");
+		return 0;
+	}
+	WP *wp = new_wp();
+	if(wp==NULL)
+	{
+		printf("There are no extra breakpoints in the pool.\n");
+		return 0;
+	}
+	wp->expr = (char*)malloc(sizeof(char)*strlen(new_args)+1);
+	strcpy(wp->expr,args);
+	wp->old_val = ans;
+	printf("Set breakpoint at 0x%x.",addr);
 	return 0;
 }
 

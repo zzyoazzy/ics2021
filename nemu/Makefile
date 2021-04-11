@@ -52,3 +52,11 @@ gdb: $(BINARY)
 
 clean: 
 	rm -rf $(BUILD_DIR)
+
+count:
+	@echo "c source file:\c" 
+	@find . -name "*.c"|xargs  cat|grep -v ^$$|wc -l 
+	@echo "c head file:\c" 
+	@find . -name "*.h"|xargs  cat|grep -v ^$$|wc -l 
+
+
