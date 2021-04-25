@@ -27,7 +27,6 @@ make_EHelper(call) {
   // the target address is calculated at the decode stage
 
   decoding.is_jmp = 1;
-  //if(decoding.is_operand_size_16)
   rtl_push(eip);
   print_asm("call %x", decoding.jmp_eip);
 }
