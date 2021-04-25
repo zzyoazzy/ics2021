@@ -38,7 +38,7 @@ static inline make_DopHelper(SI) {
    *
    op->simm = ???
    */
-  TODO();
+  op->simm = instr_fetch(eip,op->width);
 
   rtl_li(&op->val, op->simm);
 
@@ -56,7 +56,7 @@ static inline make_DopHelper(a) {
   op->reg = R_EAX;
   if (load_val) {
     rtl_lr(&op->val, R_EAX, op->width);
-  }
+  } 
 
 #ifdef DEBUG
   snprintf(op->str, OP_STR_SIZE, "%%%s", reg_name(R_EAX, op->width));
