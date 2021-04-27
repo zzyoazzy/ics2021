@@ -27,3 +27,5 @@ make_EHelper(idiv);
 make_EHelper(and);
 make_EHelper(xor);
 make_EHelper(or);
+
+make_EHelper(nop);
