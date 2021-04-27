@@ -1,13 +1,24 @@
 #include "cpu/exec.h"
 
 make_EHelper(add) {
-  TODO();
-
+  rtl_add(&id_dest->val, &id_dest->val, &id_src->val); 
   print_asm_template2(add);
 }
 
 make_EHelper(sub) {
-  TODO();
+  rtl_sub(&t2, &id_dest->val, &id_src->val);
+  rtl_sltu(&t3, &id_dest->val, &t2);
+  operand_write(id_dest, &t2);
+
+  rtl_update_ZFSF(&t2, id_dest->width);
+
+  rtl_sltu(&t0, &id_dest->val, &t2);
+  rtl_or(&t0, &t3, &t0);
+  rtl_set_CF(&t0);
+
+  rtl_xor(&t0, &id_dest->val, &id_src->val);
+  rtl_msb(&t0, &t0, id_dest->width);
+  rtl_set_OF(&t0);
 
   print_asm_template2(sub);
 }
@@ -99,7 +110,7 @@ make_EHelper(mul) {
       rtl_sr_l(R_EAX, &t1);
       break;
     default: assert(0);
-  }
+  } 
 
   print_asm_template1(mul);
 }
@@ -123,7 +134,7 @@ make_EHelper(imul1) {
       rtl_sr_l(R_EAX, &t1);
       break;
     default: assert(0);
-  }
+  } 
 
   print_asm_template1(imul);
 }
@@ -169,17 +180,17 @@ make_EHelper(div) {
       rtl_lr_l(&t1, R_EDX);
       break;
     default: assert(0);
-  }
+  } 
 
   rtl_div(&t2, &t3, &t1, &t0, &id_dest->val);
 
   rtl_sr(R_EAX, id_dest->width, &t2);
   if (id_dest->width == 1) {
     rtl_sr_b(R_AH, &t3);
-  }
+  } 
   else {
     rtl_sr(R_EDX, id_dest->width, &t3);
-  }
+  } 
 
   print_asm_template1(div);
 }
@@ -207,17 +218,17 @@ make_EHelper(idiv) {
       rtl_lr_l(&t1, R_EDX);
       break;
     default: assert(0);
-  }
+  } 
 
   rtl_idiv(&t2, &t3, &t1, &t0, &id_dest->val);
 
   rtl_sr(R_EAX, id_dest->width, &t2);
-  if (id_dest->width == 1) {
+  if  (id_dest->width == 1) {
     rtl_sr_b(R_AH, &t3);
-  }
+  } 
   else {
     rtl_sr(R_EDX, id_dest->width, &t3);
-  }
+  } 
 
   print_asm_template1(idiv);
 }

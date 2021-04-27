@@ -9,3 +9,21 @@ make_EHelper(nemu_trap);
 
 make_EHelper(call);
 make_EHelper(push);
+make_EHelper(add);
+make_EHelper(sub);
+make_EHelper(cmp);
+make_EHelper(inc);
+make_EHelper(dec);
+make_EHelper(neg);
+make_EHelper(adc);
+make_EHelper(sbb);
+make_EHelper(mul);
+make_EHelper(imul1);
+make_EHelper(imul2);
+make_EHelper(imul3);
+make_EHelper(div);
+make_EHelper(idiv);
+
+make_EHelper(and);
+make_EHelper(xor);
+make_EHelper(or);
