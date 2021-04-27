@@ -155,7 +155,7 @@ static inline void rtl_pop(rtlreg_t* dest) {
   // dest <- M[esp]
   // esp <- esp + 4
   rtl_lr_l(&t0,R_ESP);
-  rtl_sm(&t0,4,dest);
+  rtl_lm(dest,&t0,4);
   rtl_addi(&t0,&t0,4);
   rtl_sr_l(R_ESP,&t0);
 }
