@@ -129,6 +129,17 @@ void init_qemu_reg() {
 #define DIFF(reg)\
   Log("#reg value is %08x, expect %08x",cpu.reg,r.reg);
 
+#define CMP\
+  if(r.eax!=cpu.eax)DIFF(eax)\
+  if(r.ecx!=cpu.ecx)DIFF(ecx)\
+  if(r.edx!=cpu.edx)DIFF(edx)\
+  if(r.ebx!=cpu.ebx)DIFF(ebx)\
+  if(r.esp!=cpu.esp)DIFF(esp)\
+  if(r.ebp!=cpu.ebp)DIFF(ebp)\
+  if(r.esi!=cpu.esi)DIFF(esi)\
+  if(r.edi!=cpu.edi)DIFF(edi)\
+  if(r.eip!=cpu.eip)DIFF(eip)
+
 void difftest_step(uint32_t eip) {
   union gdb_regs r;
   bool diff = false;
@@ -155,6 +166,7 @@ void difftest_step(uint32_t eip) {
   diff = (cpu.eax^r.eax)|(cpu.ecx^r.ecx)|(cpu.edx^r.edx)|(cpu.ebx^r.ebx)|(cpu.esp^r.esp)|(cpu.ebp^r.ebp)|(cpu.esi^r.esi)|(cpu.edi^r.edi)|(cpu.eip^r.eip); 
   
   if (diff) {
+	CMP
     nemu_state = NEMU_END;
-  }
+  } 
 }
