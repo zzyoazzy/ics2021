@@ -127,7 +127,7 @@ void init_qemu_reg() {
 }
 
 #define DIFF(reg)\
-  Log("#reg value is %08x, expect %08x",cpu.reg,r.reg);
+  Log("#reg value is %08x, expected %08x",cpu.reg,r.reg);
 
 #define CMP\
   if(r.eax!=cpu.eax)DIFF(eax)\
@@ -156,7 +156,7 @@ void difftest_step(uint32_t eip) {
     gdb_setregs(&r);
     is_skip_qemu = false;
     return;
-  }
+  } 
 
   gdb_si();
   gdb_getregs(&r);
