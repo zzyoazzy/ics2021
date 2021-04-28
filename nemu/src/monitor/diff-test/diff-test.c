@@ -127,7 +127,7 @@ void init_qemu_reg() {
 }
 
 #define DIFF(reg)\
-  Log("#reg value is %08x, expected %08x",cpu.reg,r.reg);
+  Log("%s value is %08x, expected %08x",#reg,cpu.reg,r.reg);
 
 #define CMP\
   if(r.eax!=cpu.eax)DIFF(eax)\
