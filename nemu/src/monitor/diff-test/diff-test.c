@@ -126,6 +126,9 @@ void init_qemu_reg() {
   assert(ok == 1);
 }
 
+#define DIFF(reg)\
+  Log("#reg value is %08x, expect %08x",cpu.reg,r.reg);
+
 void difftest_step(uint32_t eip) {
   union gdb_regs r;
   bool diff = false;
