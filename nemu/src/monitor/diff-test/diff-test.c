@@ -160,7 +160,7 @@ void difftest_step(uint32_t eip) {
 
   gdb_si();
   gdb_getregs(&r);
-
+  r.esi++;
   // TODO: Check the registers state with QEMU.
   // Set `diff` as `true` if they are not the same.
   diff = (cpu.eax^r.eax)|(cpu.ecx^r.ecx)|(cpu.edx^r.edx)|(cpu.ebx^r.ebx)|(cpu.esp^r.esp)|(cpu.ebp^r.ebp)|(cpu.esi^r.esi)|(cpu.edi^r.edi)|(cpu.eip^r.eip); 
