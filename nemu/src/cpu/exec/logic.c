@@ -12,7 +12,7 @@ make_EHelper(and) {
   rtl_set_CF(&t0);
   rtl_and(&id_dest->val,&id_dest->val,&id_src->val);
   rtl_update_ZFSF(&id_dest->val, id_dest->width);
-  id_dest->val -= 0xc;
+  assert(0);
   print_asm_template2(and);
 }
 
