@@ -141,7 +141,7 @@ static inline void rtl_sext(rtlreg_t* dest, const rtlreg_t* src1, int width) {
   if(t0)
   {
 	rtl_li(&t1,(~0u)<<(width*8));
-	printf("!!!!%d!!!\n",t1);
+	assert(t1!=-1);
 	rtl_or(dest,src1,&t1);
   }
   else rtl_li(dest,*src1);
