@@ -138,10 +138,9 @@ static inline void rtl_sext(rtlreg_t* dest, const rtlreg_t* src1, int width) {
   // dest <- signext(src1[(width * 8 - 1) .. 0])
   rtl_li(&t0,1u<<(width*8-1));
   rtl_and(&t0,src1,&t0);
-  if(t0)
+  if(t0&&width<4)
   {
-	rtl_li(&t1,(~0u)<<8);
-	printf("!!!%d!!!\n",t1);
+	rtl_li(&t1,(~0u)<<(width*8));
 	rtl_or(dest,src1,&t1);
   }
   else rtl_li(dest,*src1);
