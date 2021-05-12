@@ -24,7 +24,18 @@ make_EHelper(sub) {
 }
 
 make_EHelper(cmp) {
-  TODO();
+  rtl_sub(&t2, &id_dest->val, &id_src->val);
+  rtl_sltu(&t3, &id_dest->val, &t2);
+
+  rtl_update_ZFSF(&t3, id_dest->width);
+
+  rtl_sltu(&t0, &t2, &t3);
+  rtl_or(&t0, &t3, &t0);
+  rtl_set_CF(&t0);
+
+  rtl_xor(&t0, &t2, &id_src->val);
+  rtl_msb(&t0, &t0, id_dest->width);
+  rtl_set_OF(&t0);
 
   print_asm_template2(cmp);
 }
