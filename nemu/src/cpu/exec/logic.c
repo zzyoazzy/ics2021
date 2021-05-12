@@ -10,7 +10,7 @@ make_EHelper(and) {
   rtl_li(&t0,0);
   rtl_set_OF(&t0);
   rtl_set_CF(&t0);
-  printf("%x",id_src->val);
+  printf("%x",id_dest->val);
   rtl_and(&id_dest->val,&id_dest->val,&id_src->val);
   rtl_update_ZFSF(&id_dest->val, id_dest->width);
   print_asm_template2(and);
