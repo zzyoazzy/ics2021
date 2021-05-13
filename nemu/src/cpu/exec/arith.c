@@ -60,18 +60,18 @@ make_EHelper(inc) {
   printf("!!!!%d!!!!\n",id_dest->val);
   rtl_li(&t0,1);
   rtl_add(&t1,&id_dest->val,&t0);
-  //rtl_update_ZFSF(&t1, id_dest->width);
-  //rtl_sltu(&t2, &t1, &id_dest->val);
+  rtl_update_ZFSF(&t1, id_dest->width);
+  rtl_sltu(&t2, &t1, &id_dest->val);
   operand_write(id_dest,&t1);
   
-  //rtl_set_CF(&t2);
+  rtl_set_CF(&t2);
   
-  //rtl_msb(&t2, &t1, id_dest->width);
-  //rtl_msb(&t1, &id_dest->val, id_dest->width);
-  //rtl_not(&t1);
-  //rtl_and(&t0, &t1, &t2); 
+  rtl_msb(&t2, &t1, id_dest->width);
+  rtl_msb(&t1, &id_dest->val, id_dest->width);
+  rtl_not(&t1);
+  rtl_and(&t0, &t1, &t2); 
 
-  //rtl_set_OF(&t0);
+  rtl_set_OF(&t0);
   
   print_asm_template1(inc);
 }
