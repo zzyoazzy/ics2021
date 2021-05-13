@@ -56,9 +56,10 @@ make_EHelper(cmp) {
 }
 
 make_EHelper(inc) {
+
+  printf("!!!!%d!!!!\n",id_dest->val);
   rtl_li(&t0,1);
   rtl_add(&t1,&id_dest->val,&t0);
-  printf("!!!!%d!!!!\n",id_dest->val);
   //rtl_update_ZFSF(&t1, id_dest->width);
   //rtl_sltu(&t2, &t1, &id_dest->val);
   operand_write(id_dest,&t1);
