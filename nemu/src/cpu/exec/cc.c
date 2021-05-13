@@ -44,6 +44,12 @@ void rtl_setcc(rtlreg_t* dest, uint8_t subcode) {
 		rtl_get_ZF(&t2);
 		*dest = (t0^t1)|t2;
         break;
+	case CC_NLE:
+		rtl_get_SF(&t0);
+		rtl_get_OF(&t1);
+		rtl_get_ZF(&t2);
+		*dest = !((t0^t1)|t2);
+        break;
     default: panic("should not reach here");
     case CC_P: panic("n86 does not have PF");
   }
