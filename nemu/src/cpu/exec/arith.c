@@ -4,6 +4,7 @@ make_EHelper(add) {
   printf("!!!!%d!!!!\n",id_dest->val);
   rtl_add(&id_dest->val, &id_dest->val, &id_src->val);
   printf("!!!!%d!!!!\n",id_dest->val); 
+  operand_write(id_dest,&id_dest->val);
   print_asm_template2(add);
 }
 
