@@ -93,7 +93,7 @@ opcode_entry opcode_table [512] = {
   /* 0x48 */	IDEX(r,dec), EMPTY, EMPTY, EMPTY,
   /* 0x4c */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x50 */	IDEX(r,push), IDEX(r,push), IDEX(r,push), EMPTY,
-  /* 0x54 */	EMPTY, IDEX(r,push), EMPTY, IDEX(r,push),
+  /* 0x54 */	EMPTY, IDEX(r,push), IDEX(r,push), IDEX(r,push),
   /* 0x58 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x5c */	EMPTY, IDEX(r,pop), EMPTY, EMPTY,
   /* 0x60 */	EMPTY, EMPTY, EMPTY, EMPTY,
