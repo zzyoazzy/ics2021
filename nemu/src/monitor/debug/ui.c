@@ -139,6 +139,13 @@ static int cmd_info(char *args){
 		for(int i = 0;i < 4;++i) {
 			printf("%s:\t0x%08x\t%d\n",regsb[i+4],cpu.gpr[i]._8[1],cpu.gpr[i]._8[1]);
 		}*/
+		printf("eflags:\t[");
+	    if(cpu.CF)printf("CF ");
+	    if(cpu.ZF)printf("ZF ");
+		if(cpu.SF)printf("SF ");
+		if(cpu.IF)printf("IF ");
+		if(cpu.OF)printf("OF ");
+		printf("]\n");	
 	}
 	else if(*arg == 'w') {
 		list_watchpoint();
