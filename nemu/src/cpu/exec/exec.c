@@ -62,7 +62,7 @@ make_group(gp4,
   /* 0xff */
 make_group(gp5,
     EX(inc), EX(dec), EX(call), EX(call),
-    IDEX(E,jmp), EX(jmp), EX(push), EMPTY)
+    EXW(jmp,4), EX(jmp), EX(push), EMPTY)
 
   /* 0x0f 0x01*/
 make_group(gp7,
