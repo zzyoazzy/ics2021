@@ -7,8 +7,9 @@ static unsigned long boot_time;
 void _ioe_init() {
   boot_time = inl(RTC_PORT);
 }
-
+#include<stdio.h>
 unsigned long _uptime() {
+  printf("%d\n",inl(RTC_PORT));
   return inl(RTC_PORT)-boot_time;
 }
 
