@@ -94,8 +94,11 @@ make_EHelper(dec) {
 }
 
 make_EHelper(neg) {
-  TODO();
-
+  if(!id_dest->val)rtl_li(&t0,0);
+  else rtl_li(&t0,1);
+  rtl_set_CF(&t0);
+  id_dest->val = -1* id_dest->val;
+  operand_write(id_dest,&id_dest->val)
   print_asm_template1(neg);
 }
 
