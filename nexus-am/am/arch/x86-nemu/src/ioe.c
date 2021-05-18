@@ -9,7 +9,7 @@ void _ioe_init() {
 }
 #include<stdio.h>
 unsigned long _uptime() {
-  printf("%d\n",inl(RTC_PORT));
+  printf("%d\n",boot_time);
   //return inl(RTC_PORT)-boot_time;
   return 1001;
 }
