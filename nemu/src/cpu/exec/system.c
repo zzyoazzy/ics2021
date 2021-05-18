@@ -54,8 +54,8 @@ make_EHelper(in) {
 }
 
 make_EHelper(out) {
-  pio_write(id_dest->val,id_src->width,id_src->val);
   assert(id_src->width==1);
+  pio_write(id_dest->val,id_src->width,id_src->val);
   print_asm_template2(out);
 
 #ifdef DIFF_TEST
