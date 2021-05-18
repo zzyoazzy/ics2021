@@ -54,7 +54,7 @@ make_EHelper(in) {
 }
 
 make_EHelper(out) {
-  assert(id_src->width==1);
+  assert(id_src->width==2);
   pio_write(id_dest->val,id_src->width,id_src->val);
   print_asm_template2(out);
 
