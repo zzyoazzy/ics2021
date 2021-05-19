@@ -7,7 +7,7 @@ static unsigned long boot_time;
 void _ioe_init() {
   boot_time = inl(RTC_PORT);
 }
-#include<stdio.h>
+
 unsigned long _uptime() {
   return inl(RTC_PORT)-boot_time;
 }
@@ -40,5 +40,7 @@ void _draw_sync() {
 }
 
 int _read_key() {
-  return _KEY_NONE;
+  if(inb(0x64))
+    return inb(0x60);
+  else return _KEY_NONE;
 }
