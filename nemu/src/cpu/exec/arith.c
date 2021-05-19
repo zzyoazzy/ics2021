@@ -98,7 +98,7 @@ make_EHelper(neg) {
   else rtl_li(&t0,1);
   rtl_set_CF(&t0);
   id_dest->val = -1* id_dest->val;
-  operand_write(id_dest,&id_dest->val)
+  operand_write(id_dest,&id_dest->val);
   print_asm_template1(neg);
 }
 
