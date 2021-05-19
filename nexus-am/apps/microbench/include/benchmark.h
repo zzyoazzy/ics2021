@@ -52,7 +52,6 @@ extern "C" {
 #define   MD5_LG {10000000,  16 MB, 19593, 0x27286a42}
 
 #define BENCHMARK_LIST(def) \
-  def(  md5,   "md5",   MD5_SM,   MD5_LG, "MD5 digest") \
   def(qsort, "qsort", QSORT_SM, QSORT_LG, "Quick sort") \
   def(queen, "queen", QUEEN_SM, QUEEN_LG, "Queen placement") \
   def(   bf,    "bf",    BF_SM,    BF_LG, "Brainf**k interpreter") \
